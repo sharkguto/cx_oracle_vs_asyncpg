@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  benchx:
+    build:
+      context: .
+      dockerfile: devops/Dockerfile
+    ports: 
+      - 8080:8080
+    environment: 
+      - SWAGGER_DOCS=${SWAGGER_DOCS}
+      - PYTHONUNBUFFERED=1
+    restart: on-failure
+  oraclex:
+    build:
+      context: .
+      dockerfile: devops/oracle.dockerfile
+    ports: 
+      - 8080:8080
+    environment: 
+      - SWAGGER_DOCS=1
+      - PYTHONUNBUFFERED=1
+    restart: on-failure
+  postgresx:
+    build:
+      context: .
+      dockerfile: devops/postgres.dockerfile
+    environment: 
+      - SWAGGER_DOCS=1
+      - PYTHONUNBUFFERED=1
+    restart: on-failure
+    
