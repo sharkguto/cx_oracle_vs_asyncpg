@@ -12,7 +12,7 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 import time
 from benchx import config
-
+from benchx.utils.postconn import p_database
 
 app = FastAPI(
     title="Bench oracle vs postgresql with fastapi",
@@ -47,9 +47,9 @@ async def add_process_time_header(request: Request, call_next):
 
 @app.on_event("startup")
 async def startup():
-    pass
+    await p_database.connect()
 
 
 @app.on_event("shutdown")
 async def shutdown():
-    pass
+    await p_database.disconnect()

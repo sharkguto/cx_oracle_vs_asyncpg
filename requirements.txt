@@ -1,0 +1,6 @@
+fastapi[all]
+pytest-cov==2.10.1
+gunicorn==20.0.4
+cx_Oracle==8.0.1
+databases==0.3.2
+asyncpg==0.21.0

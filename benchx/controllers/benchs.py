@@ -9,7 +9,7 @@
 from typing import List
 from fastapi import APIRouter
 from starlette.responses import Response
-
+from benchx.utils.postconn import p_database
 
 router = APIRouter()
 
@@ -19,8 +19,9 @@ async def get_friends_from_person(response: Response) -> List:
     """ 
     Bench asyncpg driver
     """
+    result = await p_database.fetch_all("select * from test.company")
+    return result
 
-    return [{"ok": 1}]
 
 @router.get("/oracle", tags=["oracle"])
 async def get_friends_from_person(response: Response) -> List:
