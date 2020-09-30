@@ -7,23 +7,31 @@
 
 import typing
 import cx_Oracle
+from benchx.config import DB_POOL_SIZE, ORACLE_DATABASE_URI
+import re
+
+regex = re.compile(r"oracle://([\d\w_]+):([\d\w_]+)@([\d\w_]+)\/([\d\w_]+)")
 
 
 class Database(object):
     def __init__(
-        self, url: typing.Union[str, "DatabaseURL"], userpwd, **options: typing.Any,
+        self, uri: str, **options: typing.Any,
     ):
 
+        user, userpwd, host, database = regex.findall(uri)[0]
+
         # Create the session pool
-        pool = cx_Oracle.SessionPool(
-            "hr",
+        self.pool = cx_Oracle.SessionPool(
+            user,
             userpwd,
-            "dbhost.example.com/orclpdb1",
-            min=2,
-            max=5,
+            f"{host}/{database}",
+            min=options["min_size"],
+            max=options["max_size"],
             increment=1,
             encoding="UTF-8",
         )
 
         # Acquire a connection from the pool
-        connection = pool.acquire()
+
+
+o_database = Database(ORACLE_DATABASE_URI, min_size=1, max_size=DB_POOL_SIZE)
