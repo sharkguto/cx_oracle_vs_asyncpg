@@ -1,0 +1,136 @@
+ODBC Package Information
+========================
+
+Tue Dec 17 16:40:12 UTC 2019
+
+Client Shared Library 64-bit - 19.6.0.0.0
+
+System name:	Linux
+Release:	4.1.12-124.32.3.el7uek.x86_64
+Version:	#2 SMP Tue Oct 15 17:03:32 PDT 2019
+Machine:	x86_64
+
+TIMEZONE INFORMATION
+--------------------
+Operating in ORACLE_HOME environment.
+
+Small timezone file = timezone_32.dat
+Large timezone file = timezlrg_32.dat
+
+LICENSE AGREEMENT
+-----------------------------
+Your use of this copy of Oracle Instant Client software product is subject to, and may not exceed the conditions of use for which you are authorized under one of the following:
+
+(i) the license or cloud services terms that you accepted when you obtained the right to use Oracle Instant Client software; or
+(ii) the license terms that you agreed to when you placed your order with Oracle for an Oracle product containing Oracle Instant Client software; or
+(iii) the Oracle Instant Client software license terms, if any, included with the hardware that you acquired from Oracle; or
+(iv) the Oracle Technology Network License Agreement (which you acknowledge you have read and agree to) available at http://www.oracle.com/technetwork/licenses/distribution-license-152002.html; or, if (i), (ii), (iii), and or (iv) are not applicable, then,
+(v) the Oracle Free Use Terms and Conditions available at ODBC_LICENSE.
+
+Oracle's obligations with respect to your use of the Oracle Instant Client, including, without limitation, obligations to indemnify you, if any, shall only be as set forth in the specific license under which you are authorized and choose to use Oracle Instant Client.
+
+===============================================================================
+
+Oracle Instant Client ODBC
+--------------------------
+
+Oracle Instant Client ODBC for Unix systems complies with ODBC 3.52
+specifications. It is based on the features of Oracle client, without the need
+for a traditional ORACLE_HOME installation.
+
+Note: See Oracle Call Interface Programmer's Guide for information on OCI
+Instant Client.
+
+Pre-requisite:
+-------------
+Instant Client ODBC depends on the Oracle Instant Client Basic or Basic Light
+package from OTN. For details on installing the Oracle Instant Client Basic or
+Basic Light packages, refer to the Oracle Call Interface Programmer's Guide.
+
+Installing Instant Client ODBC
+------------------------------
+1. Install the Instant Client Basic or Basic Light package.
+
+2. Unzip the Instant Client ODBC package.
+   ODBC Instant Client package has the following files/shared libraries:
+   ----------------------------------------------------------------------------
+   |      File name           |        Description                            |
+   |--------------------------------------------------------------------------|
+   |                          |                                               |
+   | libsqora.so.XX.Y         | ODBC Driver shared library (where XX refers   |
+   |                          | the major version and Y refers minor version).|
+   |                          |                                               |
+   | help/us/sqora.htm        | Help file (English version).                  |
+   |                          |                                               |
+   | help/ja/sqora.htm        | Help file (Japanese version).                 |
+   |                          |                                               |
+   | ODBC_README              | ODBC Instant Client readme (this file).       |
+   |                          |                                               |
+   | odbc_update_ini.sh       | Script to update odbcinst.ini and odbc.ini    |
+   |                          | files for ODBC Instant Client.                |
+   |                          |                                               |
+   ----------------------------------------------------------------------------
+
+3. Install the unixODBC driver manager if it is not already available. Refer to
+   the "Recommended unixODBC Driver Manager version" section for choosing the
+   required unixODBC driver manager version.
+
+4. Execute odbc_update_ini.sh from the Instant Client directory.
+
+   Usage:  odbc_update_ini.sh <ODBCDM_Home> [<Install_Location> <Driver_Name>
+           <DSN> <ODBCINI>] 
+   ----------------------------------------------------------------------------
+   |     Parameter    |                     Description                       |
+   |--------------------------------------------------------------------------|
+   |                  |                                                       |
+   | ODBCDM_Home      | unixODBC driver manager home directory path. This is a|
+   |                  | mandatory parameter and user has to pass the unixODBC |
+   |                  | home location.                                        |
+   |                  |                                                       |
+   | Install_Location | Oracle Instant Client directory path. Default path is |
+   |                  | current directory.                                    |
+   |                  |                                                       |
+   | Driver_Name      | Driver name to identify the Oracle ODBC driver resides|
+   |                  | in current Oracle Instant Client home. The default    |
+   |                  | name is "Oracle XX ODBC driver" where XX is the major |
+   |                  | version (optional). For e.g., the default name is     |
+   |                  | "Oracle 18 ODBC driver" for Instant Client ODBC 18.1  |
+   |                  |                                                       |
+   | DSN              | Sets ODBC DSN name. The default name is OracleODBC-XX |
+   |                  | where XX is the major version (optional). For e.g.,   |
+   |                  | the default name is "OracleODBC-18" for Instant Client|
+   |                  | ODBC 18.1                                             |
+   |                  |                                                       |
+   | ODBCINI          | Directory path of the .odbc.ini file. The default path|
+   |                  | is the user's home directory i.e. ~/.odbc.ini         |
+   |                  | (optional).                                           |
+   |                  |                                                       |
+   ----------------------------------------------------------------------------
+
+Uninstalling Instant Client ODBC:
+--------------------------------
+
+1. Remove the Oracle ODBC driver entry from the odbcinst.ini file of the
+   unixODBC driver manager.
+
+2. Remove the DSN entry of the Oracle ODBC driver from odbc.ini.
+
+3. Delete all files and directories of Instant Client ODBC.
+
+4. Reset any environment variables such as PATH and TNS_ADMIN.
+
+Recommended unixODBC Driver Manager version:
+-------------------------------------------
+
+-------------------------------------------------------------------
+| Instant Client Version       | unixODBC DM version              |
+|------------------------------|----------------------------------|
+|                              |                                  |
+| > 12.2.0.1                   | 2.3.4                            |
+|                              |                                  |
+| 12.2.0.1, 12.1.0.2, 12.1.0.1 | 2.3.1                            |
+|                              |                                  |
+| 11g (all versions)           | 2.2.11 (All),                    |
+|                              | 2.2.14 (Only on Linux 32 & 64bit)|
+-------------------------------------------------------------------
+

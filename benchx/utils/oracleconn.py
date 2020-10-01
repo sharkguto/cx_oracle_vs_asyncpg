@@ -5,6 +5,7 @@
 # @Author : Gustavo Freitas (gustavo@gmf-tech.com)
 # @Link   : https://github.com/sharkguto
 
+import os
 import typing
 import cx_Oracle
 from benchx.config import DB_POOL_SIZE, ORACLE_DATABASE_URI
@@ -19,7 +20,7 @@ class Database(object):
     ):
 
         user, userpwd, host, database = regex.findall(uri)[0]
-
+        cx_Oracle.init_oracle_client(os.getcwd() + "/devops/instantclient_19_6")
         # Create the session pool
         self.pool = cx_Oracle.SessionPool(
             user,
