@@ -24,4 +24,6 @@ ls -la
 
 echo "Start api"
 
+ls /opt/oracle/instantclient_19_6/
+
 gunicorn benchx:app --workers=4 -b "0.0.0.0:8080" --worker-class=uvicorn.workers.UvicornWorker --log-level info --timeout 60

@@ -33,9 +33,11 @@ ORACLE_DATABASE_URI = f"oracle://{DB_O_USER}:{DB_PASSWORD}@{DB_O_SERVER}/{DB_NAM
 origins = ["http://localhost", "http://localhost:3000"]
 
 
-# os.environ["PATH"] = (
-#     os.environ["PATH"] + os.pathsep + os.getcwd() + "/devops/instantclient_19_6"
-# )
+os.environ["PATH"] = (
+    os.environ["PATH"] + os.pathsep + os.getcwd() + "/devops/instantclient_19_8"
+)
 
-# os.environ["LD_LIBRARY_PATH"] = os.pathsep + os.getcwd() + "/devops/instantclient_19_6"
+os.environ["LD_LIBRARY_PATH"] = os.pathsep + os.getcwd() + "/devops/instantclient_19_8"
+
+os.environ["ORACLE_HOME"] = os.pathsep + os.getcwd() + "/devops/instantclient_19_8"
 

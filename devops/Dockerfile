@@ -20,6 +20,7 @@ COPY requirements.txt .
 RUN python3 -m pip install -r requirements.txt
 
 COPY benchx/ /opt/benchx/
+#COPY devops/instantclient_19_6/ /opt/oracle/instantclient_19_6/
 #COPY tests/ /opt/tests/
 
 COPY devops/run.sh /opt/
