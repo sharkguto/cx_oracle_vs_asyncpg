@@ -14,7 +14,7 @@ DIR="$(cd -P "$(dirname "$SOURCE")" >/dev/null 2>&1 && pwd)"
 
 echo "run at $DIR"
 
-ls -la 
+ls -la
 
 # set -e
 
@@ -24,6 +24,6 @@ ls -la
 
 echo "Start api"
 
-ls /opt/oracle/instantclient_19_6/
+#export LD_LIBRARY_PATH=/opt/oracle/instantclient_19_8/
 
 gunicorn benchx:app --workers=4 -b "0.0.0.0:8080" --worker-class=uvicorn.workers.UvicornWorker --log-level info --timeout 60

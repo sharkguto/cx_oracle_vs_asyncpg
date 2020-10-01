@@ -10,6 +10,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     curl \
     bash \
     unzip \
+    libaio1 \
     gcc && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /opt/benchx
@@ -20,7 +21,7 @@ COPY requirements.txt .
 RUN python3 -m pip install -r requirements.txt
 
 COPY benchx/ /opt/benchx/
-#COPY devops/instantclient_19_6/ /opt/oracle/instantclient_19_6/
+COPY devops/instantclient_19_8/ /opt/oracle/instantclient_19_8/
 #COPY tests/ /opt/tests/
 
 COPY devops/run.sh /opt/

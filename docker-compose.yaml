@@ -18,6 +18,7 @@ services:
   #     - DB_PASSWORD=${DB_PASSWORD}
   #     - DB_NAME=${DB_NAME}
   #     - DB_POOL_SIZE=${DB_POOL_SIZE}
+  #     - LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
   #   restart: on-failure
   #   links:
   #       - db-postgres
@@ -26,19 +27,19 @@ services:
   #       - db-postgres
   #       - db-oracle
 
-  # db-postgres:
-  #   restart: on-failure
-  #   build:
-  #     context: .
-  #     dockerfile: devops/postgres.dockerfile
-  #   command: postgres -c 'max_connections=500'
-  #   ports:
-  #     - "5432:5432"
-  #   environment:
-  #     - POSTGRES_USER=${DB_P_USER}
-  #     - POSTGRES_PASSWORD=${DB_PASSWORD}
-  #     - POSTGRES_DB=${DB_NAME}
-  #     - TZ=GMT
+  db-postgres:
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: devops/postgres.dockerfile
+    command: postgres -c 'max_connections=500'
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${DB_P_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - TZ=GMT
     
   db-oracle:
     restart: on-failure
