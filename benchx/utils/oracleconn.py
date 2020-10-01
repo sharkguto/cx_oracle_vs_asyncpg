@@ -11,7 +11,7 @@ import cx_Oracle
 from benchx.config import DB_POOL_SIZE, ORACLE_DATABASE_URI
 import re
 
-regex = re.compile(r"oracle://([\d\w_]+):([\d\w_]+)@([\d\w_]+)\/([\d\w_]+)")
+regex = re.compile(r"oracle://([\d\w_\-]+):([\d\w_\-]+)@([\d\w_\-]+)\/([\d\w_\-]+)")
 
 
 class Database(object):
@@ -20,7 +20,7 @@ class Database(object):
     ):
 
         user, userpwd, host, database = regex.findall(uri)[0]
-        cx_Oracle.init_oracle_client(os.getcwd() + "/devops/instantclient_19_6")
+        cx_Oracle.init_oracle_client("/opt/oracle/instantclient_19_6")
         # Create the session pool
         self.pool = cx_Oracle.SessionPool(
             user,
