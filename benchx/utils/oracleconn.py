@@ -20,7 +20,7 @@ class Database(object):
     ):
 
         user, userpwd, host, database = regex.findall(uri)[0]
-        #cx_Oracle.init_oracle_client("/opt/oracle/instantclient_18_5")
+        cx_Oracle.init_oracle_client(lib_dir="/opt/oracle/instantclient_19_8")
         # Create the session pool
         self.pool = cx_Oracle.SessionPool(
             user,
