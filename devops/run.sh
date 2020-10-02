@@ -26,4 +26,5 @@ echo "Start api"
 
 #export LD_LIBRARY_PATH=/opt/oracle/instantclient_19_8/
 
+
 gunicorn benchx:app --workers=4 -b "0.0.0.0:8080" --worker-class=uvicorn.workers.UvicornWorker --log-level info --timeout 60

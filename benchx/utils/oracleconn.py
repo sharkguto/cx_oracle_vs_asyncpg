@@ -36,15 +36,20 @@ class Database(object):
 
     @async_wrap
     def connect(self):
-        self.pool = cx_Oracle.SessionPool(
-            self.user,
-            self.userpwd,
-            f"{self.host}/{self.database}",
-            min=self.min_size,
-            max=self.max_size,
-            increment=1,
-            encoding="UTF-8",
-        )
+
+        while True:
+            try:
+                self.pool = cx_Oracle.SessionPool(
+                    self.user,
+                    self.userpwd,
+                    f"{self.host}/{self.database}",
+                    min=self.min_size,
+                    max=self.max_size,
+                    encoding="UTF-8",
+                )
+                break
+            except Exception as ex:
+                print(f"Waiting oracle load - {ex}")
 
     @async_wrap
     def disconnect(self):
@@ -52,6 +57,7 @@ class Database(object):
 
     @async_wrap
     def fetch_all(self, query: str) -> list:
+
         conn = self.pool.acquire()
 
         cursor = conn.cursor()
@@ -62,9 +68,28 @@ class Database(object):
         resp = cursor.fetchall()
 
         # Release the connection to the pool
-        # self.pool.release(conn)
+        self.pool.release(conn)
 
         return resp
+
+        # while True:
+        #     if self.pool.opened < self.max_size:
+        #         try:
+        #             conn = self.pool.acquire()
+
+        #             cursor = conn.cursor()
+        #             cursor.execute(query)
+        #             columns = [col[0] for col in cursor.description]
+        #             cursor.rowfactory = lambda *args: dict(zip(columns, args))
+
+        #             resp = cursor.fetchall()
+
+        #             # Release the connection to the pool
+        #             self.pool.release(conn)
+
+        #             return resp
+        #         except Exception as ex:
+        #             print(ex)
 
 
 o_database = Database(ORACLE_DATABASE_URI, min_size=1, max_size=DB_POOL_SIZE)

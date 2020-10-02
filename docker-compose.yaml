@@ -2,30 +2,30 @@ version: '3'
 
 services:
 
-  # benchx:
-  #   build:
-  #     context: .
-  #     dockerfile: devops/Dockerfile
-  #   ports: 
-  #     - 8080:8080
-  #   environment: 
-  #     - SWAGGER_DOCS=${SWAGGER_DOCS}
-  #     - PYTHONUNBUFFERED=1
-  #     - DB_SERVER_OSQL=db-oracle
-  #     - DB_SERVER_PSQL=db-postgres
-  #     - DB_O_USER=${DB_O_USER}
-  #     - DB_P_USER=${DB_P_USER}
-  #     - DB_PASSWORD=${DB_PASSWORD}
-  #     - DB_NAME=${DB_NAME}
-  #     - DB_POOL_SIZE=${DB_POOL_SIZE}
-  #     - LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
-  #   restart: on-failure
-  #   links:
-  #       - db-postgres
-  #       - db-oracle
-  #   depends_on:
-  #       - db-postgres
-  #       - db-oracle
+  benchx:
+    build:
+      context: .
+      dockerfile: devops/Dockerfile
+    ports: 
+      - 8080:8080
+    environment: 
+      - SWAGGER_DOCS=${SWAGGER_DOCS}
+      - PYTHONUNBUFFERED=1
+      - DB_SERVER_OSQL=db-oracle
+      - DB_SERVER_PSQL=db-postgres
+      - DB_O_USER=${DB_O_USER}
+      - DB_P_USER=${DB_P_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_POOL_SIZE=${DB_POOL_SIZE}
+      - LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
+    restart: on-failure
+    links:
+        - db-postgres
+        - db-oracle
+    depends_on:
+        - db-postgres
+        - db-oracle
 
   db-postgres:
     restart: on-failure
