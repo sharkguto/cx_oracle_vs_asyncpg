@@ -52,17 +52,17 @@ class Database(object):
 
     @async_wrap
     def fetch_all(self, query: str) -> list:
-        conn = self.pool.acquire()
+        with self.pool.acquire() as conn :
 
-        cursor = conn.cursor()
-        cursor.execute(query)
-        columns = [col[0] for col in cursor.description]
-        cursor.rowfactory = lambda *args: dict(zip(columns, args))
+            cursor = conn.cursor()
+            cursor.execute(query)
+            columns = [col[0] for col in cursor.description]
+            cursor.rowfactory = lambda *args: dict(zip(columns, args))
 
-        resp = cursor.fetchall()
+            resp = cursor.fetchall()
 
-        # Release the connection to the pool
-        self.pool.release(conn)
+            # Release the connection to the pool
+            #self.pool.release(conn)
 
         return resp
 
