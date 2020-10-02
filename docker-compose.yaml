@@ -55,6 +55,8 @@ services:
       - ORACLE_CHARACTERSET=AL32UTF8
       - ORACLE_ALLOW_REMOTE=true
       - ORACLE_ENABLE_XDB=true
+      - RELAX_SECURITY=1
+      - ORACLE_PASSWORD=${DB_PASSWORD}
     
 
       
