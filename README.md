@@ -40,6 +40,8 @@ LD_LIBRARY_PATH=/opt/oracle/instantclient_19_8
 
 1 connection
 
+- postgresql
+
 ```bash
 gustavo@terminator-T2900:~$ wrk -c 1 -t 1 -d 30 http://localhost:8080/v1/postgres --latency
 Running 30s test @ http://localhost:8080/v1/postgres
@@ -55,6 +57,11 @@ Running 30s test @ http://localhost:8080/v1/postgres
   19709 requests in 30.01s, 390.37MB read
 Requests/sec:    656.65
 Transfer/sec:     13.01MB
+```
+
+- oracle
+
+```bash
 gustavo@terminator-T2900:~$ wrk -c 1 -t 1 -d 30 http://localhost:8080/v1/oracle --latency
 Running 30s test @ http://localhost:8080/v1/oracle
   1 threads and 1 connections
@@ -73,6 +80,8 @@ Transfer/sec:     16.05MB
 
 2 connections
 
+- postgresql
+
 ```bash
 gustavo@terminator-T2900:~$ wrk -c 2 -t 1 -d 30 http://localhost:8080/v1/postgres --latency
 Running 30s test @ http://localhost:8080/v1/postgres
@@ -88,6 +97,11 @@ Running 30s test @ http://localhost:8080/v1/postgres
   36555 requests in 30.01s, 724.03MB read
 Requests/sec:   1218.03
 Transfer/sec:     24.13MB
+```
+
+- oracle
+
+```bash
 gustavo@terminator-T2900:~$ wrk -c 2 -t 1 -d 30 http://localhost:8080/v1/oracle --latency
 Running 30s test @ http://localhost:8080/v1/oracle
   1 threads and 2 connections
@@ -107,6 +121,8 @@ gustavo@terminator-T2900:~$
 
 200 connections
 
+- postgres
+
 ```bash
 gustavo@terminator-T2900:~$ wrk -c 200 -t 1 -d 30 http://localhost:8080/v1/postgres --latency
 Running 30s test @ http://localhost:8080/v1/postgres
@@ -123,6 +139,11 @@ Running 30s test @ http://localhost:8080/v1/postgres
   Socket errors: connect 0, read 0, write 0, timeout 9
 Requests/sec:   2877.00
 Transfer/sec:     56.98MB
+```
+
+- oracle
+
+```bash
 gustavo@terminator-T2900:~$ wrk -c 200 -t 1 -d 30 http://localhost:8080/v1/oracle --latency
 Running 30s test @ http://localhost:8080/v1/oracle
   1 threads and 200 connections
