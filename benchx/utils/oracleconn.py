@@ -46,6 +46,7 @@ class Database(object):
                     min=self.min_size,
                     max=self.max_size,
                     encoding="UTF-8",
+                    threaded=True,
                 )
                 break
             except Exception as ex:
@@ -57,20 +58,22 @@ class Database(object):
 
     @async_wrap
     def fetch_all(self, query: str) -> list:
+        try:
+            conn = self.pool.acquire()
 
-        conn = self.pool.acquire()
+            cursor = conn.cursor()
+            cursor.execute(query)
+            columns = [col[0] for col in cursor.description]
+            cursor.rowfactory = lambda *args: dict(zip(columns, args))
 
-        cursor = conn.cursor()
-        cursor.execute(query)
-        columns = [col[0] for col in cursor.description]
-        cursor.rowfactory = lambda *args: dict(zip(columns, args))
+            resp = cursor.fetchall()
 
-        resp = cursor.fetchall()
+            # Release the connection to the pool
+            self.pool.release(conn)
 
-        # Release the connection to the pool
-        self.pool.release(conn)
-
-        return resp
+            return resp
+        except Exception as ex:
+            print(ex)
 
         # while True:
         #     if self.pool.opened < self.max_size:

@@ -7,10 +7,11 @@
 
 
 from typing import List
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from starlette.responses import Response
 from benchx.utils.postconn import p_database
 from benchx.utils.oracleconn import o_database
+from starlette.status import HTTP_500_INTERNAL_SERVER_ERROR
 
 router = APIRouter()
 
@@ -31,5 +32,9 @@ async def get_friends_from_person(response: Response) -> List:
     """
 
     result = await o_database.fetch_all("select * from system.company")
+
+    # ignore resuts when got ORA-24496: OCISessionGet() timed out waiting for a free connection.
+    if not result:
+        raise HTTPException(status_code=HTTP_500_INTERNAL_SERVER_ERROR)
     return result
 

@@ -28,7 +28,7 @@ services:
         - db-oracle
 
   db-postgres:
-    restart: on-failure
+    #restart: on-failure
     build:
       context: .
       dockerfile: devops/postgres.dockerfile
@@ -42,7 +42,7 @@ services:
       - TZ=GMT
     
   db-oracle:
-    restart: on-failure
+    #restart: on-failure
     build:
       context: .
       dockerfile: devops/oracle.dockerfile
