@@ -128,17 +128,18 @@ gustavo@terminator-T2900:~$ wrk -c 200 -t 1 -d 30 http://localhost:8080/v1/postg
 Running 30s test @ http://localhost:8080/v1/postgres
   1 threads and 200 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   131.74ms  198.55ms   1.99s    89.23%
-    Req/Sec     2.89k   136.56     3.11k    96.00%
+    Latency   141.39ms  209.19ms   1.99s    87.93%
+    Req/Sec     2.90k    99.15     3.11k    88.67%
   Latency Distribution
-     50%   28.92ms
-     75%  153.79ms
-     90%  363.36ms
-     99%  992.43ms
-  86342 requests in 30.01s, 1.67GB read
-  Socket errors: connect 0, read 0, write 0, timeout 9
-Requests/sec:   2877.00
-Transfer/sec:     56.98MB
+     50%   28.65ms
+     75%  182.29ms
+     90%  394.89ms
+     99%    1.00s
+  86540 requests in 30.01s, 1.67GB read
+  Socket errors: connect 0, read 0, write 0, timeout 17
+Requests/sec:   2883.50
+Transfer/sec:     57.11MB
+gustavo@terminator-T2900:~$
 ```
 
 - oracle
@@ -148,42 +149,20 @@ gustavo@terminator-T2900:~$ wrk -c 200 -t 1 -d 30 http://localhost:8080/v1/oracl
 Running 30s test @ http://localhost:8080/v1/oracle
   1 threads and 200 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   188.63ms   24.53ms 504.33ms   82.33%
-    Req/Sec     0.94k   171.69     1.09k    92.83%
+    Latency    79.87ms   62.10ms 511.67ms   78.35%
+    Req/Sec     2.81k   345.50     3.37k    81.67%
   Latency Distribution
-     50%  188.91ms
-     75%  192.81ms
-     90%  201.95ms
-     99%  271.89ms
-  26227 requests in 30.02s, 515.19MB read
-  Socket errors: connect 0, read 1992, write 0, timeout 0
-  Non-2xx or 3xx responses: 215
-Requests/sec:    873.58
-Transfer/sec:     17.16MB
-gustavo@terminator-T2900:~$ wrk -c 200 -t 1 -d 30 http://localhost:8080/v1/oracle --latency
-Running 30s test @ http://localhost:8080/v1/oracle
-  1 threads and 200 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   200.27ms   12.24ms 345.36ms   97.08%
-    Req/Sec     1.00k    60.83     1.09k    92.00%
-  Latency Distribution
-     50%  199.77ms
-     75%  201.68ms
-     90%  205.34ms
-     99%  229.34ms
-  29825 requests in 30.01s, 589.83MB read
-  Socket errors: connect 0, read 139, write 0, timeout 0
-  Non-2xx or 3xx responses: 43
-Requests/sec:    993.68
-Transfer/sec:     19.65MB
-gustavo@terminator-T2900:~$
+     50%   42.39ms
+     75%  121.81ms
+     90%  179.98ms
+     99%  233.64ms
+  83852 requests in 30.03s, 1.62GB read
+Requests/sec:   2791.99
+Transfer/sec:     55.30MB
 ```
 
 ## Results
 
-Is not a fair fight, but as I can see cx_oracle performs pretty good with low workload, better than databases(with asyncpg). On the other hand, cx_oracle driver got a lot of crashes, invalidate some tests, when have more connections
+cx_oracle and databases(with asyncpg) performs pretty well with more connections, but Oracle driver has better latency distribution. I need to tuning more the code from both sides, but I believe that when Oracle release the async driver , will be very interested to remake this benchmark.
 
-```oracle crashes
-OCI-21500: no message, kgebse recursion failure
-OCI-21500: internal error code, arguments: [kgegpa:parameter corruption], [], [], [], [], [], [], []
-```
+

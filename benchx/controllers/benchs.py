@@ -30,11 +30,12 @@ async def get_friends_from_person(response: Response) -> List:
     """ 
     Bench oracle cx driver
     """
+    while True:
+        result = await o_database.fetch_all("select * from system.company")
 
-    result = await o_database.fetch_all("select * from system.company")
-
-    # ignore resuts when got ORA-24496: OCISessionGet() timed out waiting for a free connection.
-    if not result:
-        raise HTTPException(status_code=HTTP_500_INTERNAL_SERVER_ERROR)
-    return result
+        # ignore resuts when got ORA-24496: OCISessionGet() timed out waiting for a free connection.
+        # try again until result
+        if not result:
+            continue
+        return result
 
