@@ -165,4 +165,4 @@ Transfer/sec:     55.30MB
 
 cx_oracle and databases(with asyncpg) performs pretty well with more connections, but Oracle driver has better latency distribution. I need to tuning more the code from both sides, but I believe that when Oracle release the async driver , will be very interested to remake this benchmark.
 
-
+track issue -> [oracle - support for asyncio](https://github.com/oracle/python-cx_Oracle/issues/178)
